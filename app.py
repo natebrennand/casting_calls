@@ -6,7 +6,8 @@ import simplejson as json
 
 
 #controllers
-from controllers import user as user_controller
+from controllers    import user        as user_controller
+from controllers    import company     as company_controller
 
 
 # flask configuration
@@ -97,8 +98,11 @@ def production_delete():
 #
 @app.route('/company/create', methods=['GET', 'POST'])
 def company_create():
-    pass
-
+    if request.method == 'GET':
+        pass
+    else:
+        response = company_controller.create(g.db, request, session['user_id'])
+        return json.dumps(response)
 
 @app.route('/company/view')
 def company_view():
