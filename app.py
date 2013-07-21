@@ -2,6 +2,7 @@
 from flask import Flask, request, g, session, make_response, session
 import MySQLdb as mysql
 from os import getenv
+import simplejson as json
 
 
 #controllers
@@ -10,7 +11,7 @@ from controllers import user as user_controller
 
 # flask configuration
 app = Flask(__name__)
-app.secret_key(getenv('FLASK_SECRET'))
+app.secret_key = str(getenv('FLASK_SECRET'))
 
 
 #
@@ -146,11 +147,13 @@ def logout():
 
 @app.route('/login', methods=['POST'])
 def login():
-    outcome, message = user_controller.login(
-        g.db,
-        request.form['username'],
-        request.form['password'])
-
+    response = user_controller.login(g.db, request)
+    if response['success']:
+        session['user_id'] = response['user_id']
+        print 'SESSION: ', session
+        return json.dumps({'statusCode':200})
+    else:
+        return json.dumps({'statusCode': response['statusCode']})
 
 
 @app.route('/')

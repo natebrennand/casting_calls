@@ -4,7 +4,15 @@ from hashlib import md5
 
 # Returns either False with an error message
 # or True with a user_id
-def login(db_conn, username, password):
+def login(db_conn, request):
+    form = request.form
+    if not form or not form['username'] or not form['password']:
+        return {
+            "success"   : False,
+            "statusCode": 400,
+            "message"   : "No credentials found"
+        }
+    username, password = form['username'], form['password']
     cursor = db_conn.cursor()
     cursor.execute("""
         SELECT
