@@ -4,15 +4,42 @@
     var routes;
     window.casting = angular.module('casting', ['ui.bootstrap']);
     routes = function($routeProvider) {
-      $routeProvider.when('/', {
-        templateUrl: 'static/landing.html'
-      }).when('/about', {
-        templateUrl: 'static/about.html'
-      }).when('/find/auditions', {
-        templateUrl: 'static/map.html'
-      }).otherwise({
-        redirectTo: 'static/notfound.html'
-      });
+      $routeProvider
+
+      .when('/',                           { templateUrl: 'static/landing.html'             })
+      .when('/about',                      { templateUrl: 'static/about.html'               })
+      .when('/find/auditions',             { templateUrl: 'static/map.html'                 })
+
+      .when('/audition/create',            { templateUrl: 'static/audition/create.html'     })
+      .when('/audition/edit',              { templateUrl: 'static/audition/edit.html'       })
+      .when('/audition/delete',            { templateUrl: 'static/audition/delete.html'     })
+      .when('/audition/view',              { templateUrl: 'static/audition/view.html'       })
+
+      .when('/part/create',                { templateUrl: 'static/part/create.html'         })
+      .when('/part/edit',                  { templateUrl: 'static/part/edit.html'           })
+      .when('/part/delete',                { templateUrl: 'static/part/delete.html'         })
+      .when('/part/view',                  { templateUrl: 'static/part/view.html'           })
+
+      .when('/production/create',          { templateUrl: 'static/production/create.html'   })
+      .when('/production/edit',            { templateUrl: 'static/production/edit.html'     })
+      .when('/production/delete',          { templateUrl: 'static/production/delete.html'   })
+      .when('/production/view',            { templateUrl: 'static/production/view.html'     })
+
+      .when('/company/create',             { templateUrl: 'static/company/create.html'      })
+      .when('/company/view',               { templateUrl: 'static/company/view.html'        })
+      .when('/company/edit',               { templateUrl: 'static/company/edit.html'        })
+      .when('/company/delete',             { templateUrl: 'static/company/delete.html'      })
+
+      .when('/login',                      { templateUrl: 'static/account/login.html'       })
+      .when('/logout',                     { templateUrl: 'static/account/logout.html'      })
+      .when('/register',                   { templateUrl: 'static/account/register.html'    })
+      .when('/account/view',               { templateUrl: 'static/account/view.html'        })
+      .when('/account/edit',               { templateUrl: 'static/account/edit.html'        })
+      .when('/account/delete',             { templateUrl: 'static/account/delete.html'      })
+
+      .when('/unauthorized',               { templateUrl: 'static/errors/unauthorized.html' })
+
+      .otherwise({ redirectTo: 'static/errors/notfound.html' });
     };
     casting.config(routes);
   });
