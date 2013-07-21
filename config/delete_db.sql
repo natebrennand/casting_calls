@@ -1,5 +1,6 @@
 use Casting
 
+drop Table actor_audition;
 drop Table auditionPart;
 drop Table audition;
 drop Table part;

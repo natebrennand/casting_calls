@@ -4,7 +4,8 @@ CREATE TABLE user (
 	id int not null  AUTO_INCREMENT primary key,
 	username varchar(30) not null unique,
 	email varchar(100) not null,
-	password varchar(100) not null
+	password varchar(100) not null,
+	phone varchar(9) null
 );
 
 CREATE TABLE actor (
@@ -14,7 +15,7 @@ CREATE TABLE actor (
 	race varchar(30) null,
 	height float null,
 	weight float null,
-	bodytype float null,
+	bodytype varchar(30),
 	preferredLocation varchar(5) null,
 	TheatreFlag enum('T', 'F') null,
 	FilmFlag enum('T', 'F') null,

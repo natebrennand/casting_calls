@@ -1,7 +1,20 @@
 
 
 
-def create(db_conn, request, user_id):
+def create(db_conn, request):
+    errors = ""
+
+    ajson = request.form
+    cursor = db_conn.cursor()
+    cursor.execute("""
+        SELECT 1 FROM
+            actor
+        WHERE
+            id = %s
+    """, (ajson['id']))
+    data = cursor.fetchall()
+    record_exist = (len(data) > 0)
+
     form = request.form
     cursor = db_conn.cursor()
     try:

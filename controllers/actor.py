@@ -23,7 +23,6 @@ def save_actor(db_conn, request):
             id = %s
     """, (ajson['id']))
     data = cursor.fetchall()
-    print data
     record_exist = (len(data) > 0)  #does the record already exist in the system
 
     # check each field valid
@@ -146,6 +145,10 @@ def get_actor(dbconn, request):
                 "success"   : True,
                 "statusCode": 200,
             }
+
+
+#
+#def favorite(dbconn, request):
 
 # cursor.execute("""
 #         SELECT
