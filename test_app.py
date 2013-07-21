@@ -43,7 +43,7 @@ def part_delete():
 #
 #   Production Object API
 #
-@app.route('/production/create')
+@app.route('/production/create', methods=['GET', 'POST'])
 def production_create():
     pass
 
@@ -71,7 +71,7 @@ def company_view():
     pass
 
 
-@app.route('/company/edit')
+@app.route('/company/edit', methods=['GET', 'POST'])
 def company_edit():
     pass
 
