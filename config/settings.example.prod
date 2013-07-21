@@ -4,3 +4,5 @@ export MYSQL_HOST='localhost'
 export MYSQL_USER='my_user'
 export MYSQL_PASSWORD='my_password'
 
+export FLASK_SECRET='super random string'
+
