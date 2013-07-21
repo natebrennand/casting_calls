@@ -4,3 +4,5 @@ lib/
 bin/
 .Python
 .DS_Store
+*.pyc
+controllers/test.py

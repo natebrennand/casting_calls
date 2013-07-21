@@ -9,21 +9,21 @@ HEIGHT_RANGE = [20, 96]
 WEIGHT_RANGE = [50, 500]
 BODYTYPE = ('Thin','Athletic','Obese')
 TF = ('T', 'F')
-COMPENSATION = ('None', 'Room and Board', 'Stipend')
+COMPENSATION = ('None', 'Room and Board', 'Stipend', 'Salary')
 SINGINGTYPES = ('Opera', 'TBD')
 
 # Saves Actor Skills and Chracteristics Data
-def save_actor(dbconn, request):
+def save_actor(db_conn, request):
     ajson = request.form
     cursor = db_conn.cursor()
     cursor.execute("""
-        SELECT 1  FROM
+        SELECT 1 FROM
             actor
         WHERE
             id = %s
-    """, (ajson["id"]))
+    """, (ajson['id']))
     data = cursor.fetchall()
-
+    print data
     record_exist = (len(data) > 0)  #does the record already exist in the system
 
     # check each field valid
@@ -68,13 +68,43 @@ def save_actor(dbconn, request):
         errors += "Singing Years must be integer; "
 
     # if update, update
-    #if record_exist:
+    if record_exist:
+        sql = "update actor set "
+        for key, value in ajson.items():
+            sql += key + " = '" + str(value) + "', "
+        sql = sql.rstrip().rstrip(",")
+        sql += " where id = " + str(ajson['id'])
+        
+        try:
+            cursor.execute(sql)
+            db_conn.commit()
+        except Error:
+            print 'Database error'
+            cursor.close()
+            return {'status': 500}
 
-        #
-    # if new record, and insert
-    #else:
-        #
+    # if new record,  insert
+    else:
+        sql = "insert into actor "
+        sql1 = "("
+        sql2 = "("
+        for key, value in ajson.items():
+            sql1 += key + ", "
+            sql2 += "'" + str(value) + "', "
+        sql1 = sql1.rstrip().rstrip(",")
+        sql2 = sql2.rstrip().rstrip(",")
+        sql1 += ")"
+        sql2 += ")"
+        sql += sql1 + " values " + sql2
+        print sql
 
+        try:
+            cursor.execute(sql)
+            db_conn.commit()
+        except Error:
+            print 'Database error'
+            cursor.close()
+            return {'status': 500}
 
 
     if len(errors) > 0:
@@ -88,10 +118,11 @@ def save_actor(dbconn, request):
         return {
                 "success"   : True,
                 "statusCode": 200,
+                "record_exist" : record_exist
             }
 
 def get_actor(dbconn, request):
-    errors = ""
+    errors = "Function not yet Implemented"
     record_exist = False  #does the record already exist in the system
 
     if record_exist:
@@ -100,6 +131,9 @@ def get_actor(dbconn, request):
 
     else:
         errors = "Record does not exist"
+
+
+
 
     if len(errors) > 0:
        return {
