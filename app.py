@@ -1,7 +1,40 @@
 
-from flask import Flask, request, g, session, make_response
+from flask import Flask, request, g, session, make_response, session
+import MySQLdb as mysql
+from os import getenv
 
+
+#controllers
+from controllers import user as user_controller
+
+
+# flask configuration
 app = Flask(__name__)
+app.secret_key(getenv('FLASK_SECRET'))
+
+
+#
+#   DB configuration
+#
+@app.before_request
+def before_request():
+    if not getattr(g, 'db', None):
+        g.db = connect_db()
+
+
+@app.teardown_request
+def teardown_request(exception):
+    if hasattr(g, 'db'):
+        close_db()
+
+
+def connect_db():
+    return mysql.connect(   host    = getenv('MYSQL_HOST'),
+                            user    = getenv('MYSQL_USER'),
+                            passwd  = getenv('MYSQL_PASSWORD'),
+                            db      = getenv('MYSQL_DATABASE') )
+def close_db():
+    g.db.close()
 
 
 #
@@ -113,7 +146,11 @@ def logout():
 
 @app.route('/login', methods=['POST'])
 def login():
-    pass
+    outcome, message = user_controller.login(
+        g.db,
+        request.form['username'],
+        request.form['password'])
+
 
 
 @app.route('/')
