@@ -1,4 +1,4 @@
-use Casting
+USE Casting;
 
 CREATE TABLE user (
 	id int not null  AUTO_INCREMENT primary key,
