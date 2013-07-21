@@ -1,5 +1,5 @@
 
-import  MySQLdb as mysql
+import MySQLdb as mysql
 from os import getenv
 
 db = mysql.connect( host    = getenv('MYSQL_HOST'),
@@ -10,11 +10,16 @@ db = mysql.connect( host    = getenv('MYSQL_HOST'),
 #
 #   IMPORT YOUR CONTROLLER HERE
 #
-#   INSERT TESTING CODE HERE
+#   INSERT TESTING CODE HERE1
 #
-#
+import actor
 
+class request:
+    def __init__(self, dict):
+        self.form = dict 
+
+a = request({"id":1, "gender":"Male", "height":60.1, "CompensationDesired":"None", "race":"White"})
+
+print actor.save_actor(db, a)
 
 db.close()
-
-
