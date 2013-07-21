@@ -1,0 +1,6 @@
+
+export MYSQL_DATABASE='my_bd'
+export MYSQL_HOST='localhost'
+export MYSQL_USER='my_user'
+export MYSQL_PASSWORD='my_password'
+
