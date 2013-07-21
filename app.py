@@ -142,7 +142,9 @@ def about():
 
 @app.route('/logout', methods=['POST'])
 def logout():
-    pass
+    session.clear()
+    return json.dumps({'statusCode':200})
+
 
 
 @app.route('/login', methods=['POST'])
