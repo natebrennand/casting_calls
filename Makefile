@@ -1,2 +1,2 @@
 local:
-	stylus -o ./public/css/ -c ./private/stylus/main.styl
+	stylus -o ./static/css/ -c ./private/stylus/main.styl
