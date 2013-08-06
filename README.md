@@ -1,4 +1,9 @@
 
+#Casting Calls
+
+Incomplete project from the PayPal BattleHack event.
+
+Intended to be a cheaper and easier way to allows actors to connect with casting directors.
 
 ##Configuration
 
